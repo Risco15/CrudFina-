@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Reserva</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Registrar Reserva</h2>
+
+    <form th:action="@{/reservas}" th:object="${reserva}" method="post">
+        <div class="form-group">
+            <label for="dni">DNI:</label>
+            <input type="text" id="dni" th:field="*{dni}" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="nombrePaciente">Nombre del Paciente:</label>
+            <input type="text" id="nombrePaciente" th:field="*{nombrePaciente}" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" th:field="*{telefono}" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="especialidad">Especialidad:</label>
+            <select id="especialidad" th:field="*{idEspecialidad}" class="form-control" required>
+                <option value="" selected>Seleccione una especialidad</option>
+                <option th:each="especialidad : ${especialidades}"
+                        th:value="${especialidad.id_especialidad}"
+                        th:text="${especialidad.descripcion}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="medico">Médico:</label>
+            <select id="medico" th:field="*{idMedico}" class="form-control" required>
+                <option value="" selected>Seleccione un médico</option>
+                <option th:each="medico : ${medicos}"
+                        th:value="${medico.id_medico}"
+                        th:text="${medico.nombre}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fechaCita">Fecha de Cita:</label>
+            <input type="date" id="fechaCita" th:field="*{fechaCita}" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="horaCita">Hora de Cita:</label>
+            <input type="time" id="horaCita" th:field="*{horaCita}" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar Reserva</button> 
+        <a href="/listado" class="btn btn-secondary">Listar Reservas</a>
+        <button type="reset" class="btn btn-warning">Limpiar</button>
+    </form>
+
+    <div th:if="${success}" class="alert alert-success mt-3" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+</div>
+</body>
+</html>
